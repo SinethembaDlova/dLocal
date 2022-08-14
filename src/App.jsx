@@ -6,23 +6,22 @@ import {
   Route,
   Routes
 } from 'react-router-dom';
-import './App.css';
-import  Signin from './views/signin';
+import Signin from './views/signin';
 
 function App () {
 
   return (
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Navigate to="/signin" replace />}></Route>
-          <Route
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Navigate to="/signin" replace />}></Route>
+        <Route
           exact
           path="/signin"
           element={<Signin />}
-          >
-          </Route>
-        </Routes>
-      </Router>
+        >
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

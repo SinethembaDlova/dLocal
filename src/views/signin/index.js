@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../components/Buttons';
 import {
   Container,
@@ -9,27 +9,42 @@ import FormInput from '../../components/FormInput';
 import { Heading2 } from '../../components/Typography';
 
 const Signin = () => {
+
+  const [username, setUsername] = useState({ field: '', valid: null });
+  const [password, setPassword] = useState({ field: '', valid: null });
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const user = {
+      username: username.field,
+      password: password.field
+    };
+    console.log('user', user);
+  };
+
   return (
     <Container row>
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
-          <Form method="POST">
+          <Form onSubmit={ handleSubmit }>
             <FormInput
-              state="dsinethemba@gmail.com"
+              state={ username }
               placeholder="Username"
-              name="last_name"
+              name="username"
               incorrectMessage="Please enter a correct username."
-              // setState={setLastName}
+              setState={ setUsername }
             />
             <FormInput
-              state="**********"
+              state={ password }
               placeholder="Password"
-              name="last_name"
+              name="password"
               incorrectMessage="Please enter a correct password."
-              // setState={setLastName}
+              setState={ setPassword }
+              type="password"
             />
             <Button type="submit">Sign In</Button>
+            <p>Dont have an account? <a href="/signup">Sign up</a></p>
           </Form>
         </FormContainer>
       </Container>

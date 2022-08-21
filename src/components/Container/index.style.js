@@ -10,9 +10,6 @@ const CenteredContainer = styled.div`
 const Container = styled(CenteredContainer)`
   width: 100%;
   min-height: 100vh;
-  background-color: ${props =>
-    props.light ? 'var(--theme-blue)' : 'var(--theme-grey)'};
-  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

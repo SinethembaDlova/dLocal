@@ -1,0 +1,13 @@
+body {
+    background-color: #6a62d2; 
+    color: #274064;
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+  }
+

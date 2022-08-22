@@ -6,8 +6,11 @@ import {
   Route,
   Routes
 } from 'react-router-dom';
+import Home from './views/home';
+import Public from './views/public';
 import Signin from './views/signin';
 import Signup from './views/signup';
+import User from './views/user';
 import './app.css';
 
 function App () {
@@ -25,6 +28,21 @@ function App () {
           exact
           path="/signup"
           element={<Signup />}
+        />
+        <Route
+          exact
+          path="/public"
+          element={<Public />}
+        />
+        <Route
+          exact
+          path="/user"
+          element={<User />}
+        />
+        <Route
+          exact
+          path="/home"
+          element={<Home />}
         />
       </Routes>
     </Router>

@@ -10,7 +10,7 @@ import FormInput from '../../components/FormInput';
 import { Heading2 } from '../../components/Typography';
 import { signinThunk } from '../../redux/thunks';
 
-const Signin = () => {
+const Signin = ({ signIn }) => {
   const [username, setUsername] = useState({
     field: '',
     valid: null
@@ -26,8 +26,7 @@ const Signin = () => {
       username: username.field,
       password: password.field
     };
-    signinThunk(user);
-    console.log('user', user);
+    signIn(user);
   };
 
   return (
@@ -63,7 +62,7 @@ const Signin = () => {
 };
 
 const mapProps = state => ({
-  status: state.signin.status
+  status: state.user.status
 });
 
 const mapDispatchToProps = dispatch => {

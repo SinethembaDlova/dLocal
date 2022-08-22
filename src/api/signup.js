@@ -5,8 +5,8 @@ const signupApi = async body => {
   const path = `${url()}/users/signup`;
 
   try {
-    const results = await axios.post(path, body);
-    return results;
+    const session = await axios.post(path, body);
+    return session?.data;
   } catch (error) {
     throw new Error(error);
   }

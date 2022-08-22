@@ -8,9 +8,17 @@ import {
 } from '../../components/Container/index.style.js';
 import FormInput from '../../components/FormInput';
 import { Heading2 } from '../../components/Typography';
-import { signinThunk } from '../../redux/thunks';
+import { signupThunk } from '../../redux/thunks';
 
-const Signin = ({ signin }) => {
+const Signup = ({ signup }) => {
+  const [first_name, setFirstname] = useState({
+    field: '',
+    valid: null
+  });
+  const [last_name, setLastname] = useState({
+    field: '',
+    valid: null
+  });
   const [username, setUsername] = useState({
     field: '',
     valid: null
@@ -23,18 +31,34 @@ const Signin = ({ signin }) => {
   const handleSubmit = event => {
     event.preventDefault();
     const user = {
+      first_name: first_name.field,
+      last_name: last_name.field,
       username: username.field,
       password: password.field
     };
-    signin(user);
+    signup(user);
   };
 
   return (
     <Container row>
       <Container small>
         <FormContainer>
-          <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
+          <Heading2>SIGN UP A NEW ACCOUNT</Heading2>
           <Form onSubmit={handleSubmit}>
+            <FormInput
+              state={first_name}
+              placeholder="First Name"
+              name="first_name"
+              incorrectMessage="Please enter a correct first name."
+              setState={setFirstname}
+            />
+            <FormInput
+              state={last_name}
+              placeholder="Last Name"
+              name="last_name"
+              incorrectMessage="Please enter a correct last name."
+              setState={setLastname}
+            />
             <FormInput
               state={username}
               placeholder="Username"
@@ -50,9 +74,10 @@ const Signin = ({ signin }) => {
               setState={setPassword}
               type="password"
             />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Sign Up</Button>
             <p>
-              Dont have an account? <a href="/signup">Sign up</a>
+              You have an account already?{' '}
+              <a href="/signin">Sign in</a>
             </p>
           </Form>
         </FormContainer>
@@ -67,8 +92,8 @@ const mapProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: data => dispatch(signinThunk(data))
+    signup: data => dispatch(signupThunk(data))
   };
 };
 
-export default connect(mapProps, mapDispatchToProps)(Signin);
+export default connect(mapProps, mapDispatchToProps)(Signup);

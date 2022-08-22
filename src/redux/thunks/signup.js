@@ -4,7 +4,9 @@ import signup from '../../api/signup';
 const signup = createAsyncThunk(
     'signup',
     async body => {
-      return signup(body);
+        const signup = signup(body);
+        const access_token = signup.access_token;
+        return localStorage.setItem('access_token', access_token);
     }
 )
 

@@ -6,6 +6,7 @@ import {
   Route,
   Routes
 } from 'react-router-dom';
+import PrivateRoutes from './components/PrivateRoutes';
 import Home from './views/home';
 import Public from './views/public';
 import Signin from './views/signin';
@@ -34,16 +35,18 @@ function App () {
           path="/public"
           element={<Public />}
         />
-        <Route
-          exact
-          path="/user"
-          element={<User />}
-        />
-        <Route
-          exact
-          path="/home"
-          element={<Home />}
-        />
+        <Route element={<PrivateRoutes />}>
+          <Route
+            exact
+            path="/user"
+            element={<User />}
+          />
+          <Route
+            exact
+            path="/home"
+            element={<Home />}
+          />
+        </Route>
       </Routes>
     </Router>
   );

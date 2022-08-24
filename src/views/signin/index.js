@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/Buttons';
 import {
@@ -11,6 +11,9 @@ import { Heading2 } from '../../components/Typography';
 import { signinThunk } from '../../redux/thunks';
 
 const Signin = ({ signin }) => {
+  const userRef = useRef();
+  const errorRef = useRef();
+
   const [username, setUsername] = useState({
     field: '',
     valid: null
@@ -19,6 +22,15 @@ const Signin = ({ signin }) => {
     field: '',
     valid: null
   });
+  const [errorMessage, setErrorMessage] = useState('Error message');
+
+  useEffect(()=> {
+    useRef.current.focus();
+  }, []);
+
+  useEffect(()=> {
+    setErrorMessage('');
+  },[username.field, password.field]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -34,6 +46,7 @@ const Signin = ({ signin }) => {
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
+          { errorMessage.length > 0 && <p ref={ errorRef }>{ errorMessage }</p> }
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={username}
@@ -41,6 +54,9 @@ const Signin = ({ signin }) => {
               name="username"
               incorrectMessage="Please enter a correct username."
               setState={setUsername}
+              text="text"
+              ref={userRef}
+              required
             />
             <FormInput
               state={password}
@@ -49,6 +65,7 @@ const Signin = ({ signin }) => {
               incorrectMessage="Please enter a correct password."
               setState={setPassword}
               type="password"
+              required
             />
             <Button type="submit">Sign In</Button>
             <p>
@@ -67,7 +84,7 @@ const mapProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: data => dispatch(signinThunk(data))
+    signin: data => dispatch(signinThunk(data))
   };
 };
 

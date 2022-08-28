@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/Buttons';
 import {
@@ -8,11 +8,11 @@ import {
 } from '../../components/Container/index.style.js';
 import FormInput from '../../components/FormInput';
 import { Heading2 } from '../../components/Typography';
+import AuthContext from '../../context/AuthProvider';
 import { signinThunk } from '../../redux/thunks';
 
-const Signin = ({ signin }) => {
-  const userRef = useRef();
-  const errorRef = useRef();
+const Signin = ({ signin, user }) => {
+  const { setAuth } = useContext(AuthContext);
 
   const [username, setUsername] = useState({
     field: '',
@@ -22,23 +22,15 @@ const Signin = ({ signin }) => {
     field: '',
     valid: null
   });
-  const [errorMessage, setErrorMessage] = useState('Error message');
 
-  useEffect(()=> {
-    useRef.current.focus();
-  }, []);
-
-  useEffect(()=> {
-    setErrorMessage('');
-  },[username.field, password.field]);
-
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    const user = {
+    const body = {
       username: username.field,
       password: password.field
     };
-    signin(user);
+    signin(body);
+    setAuth(user);
   };
 
   return (
@@ -46,7 +38,6 @@ const Signin = ({ signin }) => {
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
-          { errorMessage.length > 0 && <p ref={ errorRef }>{ errorMessage }</p> }
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={username}
@@ -55,7 +46,6 @@ const Signin = ({ signin }) => {
               incorrectMessage="Please enter a correct username."
               setState={setUsername}
               text="text"
-              ref={userRef}
               required
             />
             <FormInput
@@ -79,7 +69,8 @@ const Signin = ({ signin }) => {
 };
 
 const mapProps = state => ({
-  status: state.user.status
+  status: state?.user?.status,
+  user: state?.user?.payload
 });
 
 const mapDispatchToProps = dispatch => {

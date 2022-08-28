@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/Buttons';
 import {
@@ -8,9 +8,11 @@ import {
 } from '../../components/Container/index.style.js';
 import FormInput from '../../components/FormInput';
 import { Heading2 } from '../../components/Typography';
+import AuthContext from '../../context/AuthProvider';
 import { signupThunk } from '../../redux/thunks';
 
-const Signup = ({ signup }) => {
+const Signup = ({ signup, user }) => {
+  const { setAuth } = useContext(AuthContext);
   const [first_name, setFirstname] = useState({
     field: '',
     valid: null
@@ -30,13 +32,14 @@ const Signup = ({ signup }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const user = {
+    const body = {
       first_name: first_name.field,
       last_name: last_name.field,
       username: username.field,
       password: password.field
     };
-    signup(user);
+    signup(body);
+    setAuth(user);
   };
 
   return (
@@ -87,7 +90,8 @@ const Signup = ({ signup }) => {
 };
 
 const mapProps = state => ({
-  status: state.user.status
+  status: state.user.status,
+  user: state?.user?.payload
 });
 
 const mapDispatchToProps = dispatch => {

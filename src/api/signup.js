@@ -2,7 +2,7 @@ import axios from 'axios';
 import { url } from '../utils/api';
 
 const signupApi = async body => {
-  const path = `${url()}users/signup`;
+  const path = `${url()}signup`;
 
   try {
     const session = await axios.post(path, body);

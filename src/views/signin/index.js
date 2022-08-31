@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/Buttons';
 import {
@@ -23,7 +23,10 @@ const Signin = ({ signin, user }) => {
     valid: null
   });
 
-  const handleSubmit = async event => {
+  useEffect(()=> {
+  },[username.field, password.field]);
+
+  const handleSubmit = event => {
     event.preventDefault();
     const body = {
       username: username.field,
@@ -69,8 +72,8 @@ const Signin = ({ signin, user }) => {
 };
 
 const mapProps = state => ({
-  status: state?.user?.status,
-  user: state?.user?.payload
+  status: state.user.status,
+  user: state.user
 });
 
 const mapDispatchToProps = dispatch => {

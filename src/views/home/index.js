@@ -1,7 +1,9 @@
 import React from 'react';
+import Button from '../../components/Buttons';
+import useRefreshToken from '../../hooks/useRefresh';
 
 const Home = () => {
-  return <h1>HELLO HOME</h1>;
+  return <Button onClick={ useRefreshToken() }>refresh token</Button>;
 };
 
 export default Home;

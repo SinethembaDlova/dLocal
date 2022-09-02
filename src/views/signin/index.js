@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import Alert from '../../components/Alert';
 import Button from '../../components/Buttons';
 import {
   Container,
@@ -40,6 +41,10 @@ const Signin = ({ signin, user }) => {
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
+          <Alert
+            variant="error"
+            message="Username or Password does not exist."
+          />
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={username}

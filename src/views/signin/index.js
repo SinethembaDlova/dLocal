@@ -23,8 +23,7 @@ const Signin = ({ signin, user }) => {
     valid: null
   });
 
-  useEffect(()=> {
-  },[username.field, password.field]);
+  useEffect(() => {}, [username.field, password.field]);
 
   const handleSubmit = event => {
     event.preventDefault();

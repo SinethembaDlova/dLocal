@@ -12,7 +12,7 @@ import { Heading2 } from '../../components/Typography';
 import AuthContext from '../../context/AuthProvider';
 import { signinThunk } from '../../redux/thunks';
 
-const Signin = ({ signin, user }) => {
+const Signin = ({ signin, user, status }) => {
   const { setAuth } = useContext(AuthContext);
 
   const [username, setUsername] = useState({
@@ -23,28 +23,34 @@ const Signin = ({ signin, user }) => {
     field: '',
     valid: null
   });
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {}, [username.field, password.field]);
+  useEffect(() => {
+    setErrorMessage(null);
+  }, [errorMessage]);
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const body = {
       username: username.field,
       password: password.field
     };
-    signin(body);
+    await signin(body);
     setAuth(user);
   };
+
+  if (status === 'failed') setErrorMessage('Username or password does not exist.');
 
   return (
     <Container row>
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
-          <Alert
-            variant="error"
-            message="Username or Password does not exist."
-          />
+          { errorMessage && <Alert
+              variant="error"
+              message={ errorMessage }
+            />
+          }
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={username}

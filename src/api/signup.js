@@ -8,7 +8,7 @@ const signupApi = async body => {
     const session = await axios.post(path, body);
     return session?.data;
   } catch (error) {
-    throw new Error(error);
+    return error;
   }
 };
 

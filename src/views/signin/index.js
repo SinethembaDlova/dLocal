@@ -8,6 +8,7 @@ import {
   Form
 } from '../../components/Container/index.style.js';
 import FormInput from '../../components/FormInput';
+import Loader from '../../components/Loader';
 import { Heading2 } from '../../components/Typography';
 import AuthContext from '../../context/AuthProvider';
 import { signinThunk } from '../../redux/thunks';
@@ -27,7 +28,9 @@ const Signin = ({ signin, user, status }) => {
 
   useEffect(() => {
     setErrorMessage(null);
-  }, [errorMessage]);
+    if (status === 'failed')
+      setErrorMessage('Username or password does not exist.');
+  }, [errorMessage, status]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -39,18 +42,16 @@ const Signin = ({ signin, user, status }) => {
     setAuth(user);
   };
 
-  if (status === 'failed') setErrorMessage('Username or password does not exist.');
+  if (status === 'signing in') return <Loader />;
 
   return (
     <Container row>
       <Container small>
         <FormContainer>
           <Heading2>SIGN IN YOUR ACCOUNT</Heading2>
-          { errorMessage && <Alert
-              variant="error"
-              message={ errorMessage }
-            />
-          }
+          {errorMessage && (
+            <Alert variant="error" message={errorMessage} />
+          )}
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={username}

@@ -29,4 +29,4 @@ const LoaderContainer = styled.div`
   }
 `;
 
-export { LoaderOverlay,  LoaderContainer };
+export { LoaderOverlay, LoaderContainer };

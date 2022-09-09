@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import Alert from '../../components/Alert';
 import Button from '../../components/Buttons';
 import {
   Container,
@@ -7,11 +8,12 @@ import {
   Form
 } from '../../components/Container/index.style.js';
 import FormInput from '../../components/FormInput';
+import Loader from '../../components/Loader';
 import { Heading2 } from '../../components/Typography';
 import AuthContext from '../../context/AuthProvider';
 import { signupThunk } from '../../redux/thunks';
 
-const Signup = ({ signup, user }) => {
+const Signup = ({ signup, user, status }) => {
   const { setAuth } = useContext(AuthContext);
   const [first_name, setFirstname] = useState({
     field: '',
@@ -29,6 +31,13 @@ const Signup = ({ signup, user }) => {
     field: '',
     valid: null
   });
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    setErrorMessage(null);
+    if (status === 'failed')
+      setErrorMessage('Oops sigining up failed.');
+  }, [errorMessage, status]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -42,11 +51,16 @@ const Signup = ({ signup, user }) => {
     setAuth(user);
   };
 
+  if (status === 'signing up') return <Loader />;
+
   return (
     <Container row>
       <Container small>
         <FormContainer>
           <Heading2>SIGN UP A NEW ACCOUNT</Heading2>
+          {errorMessage && (
+            <Alert variant="error" message={errorMessage} />
+          )}
           <Form onSubmit={handleSubmit}>
             <FormInput
               state={first_name}

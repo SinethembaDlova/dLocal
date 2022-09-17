@@ -1,7 +1,8 @@
 import React from 'react';
+import Entity from '../../components/Entity';
 
 const User = () => {
-  return <h1>HELLO USER</h1>;
+  return <Entity />;
 };
 
 export default User;

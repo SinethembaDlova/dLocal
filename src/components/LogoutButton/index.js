@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthProvider';
 import Button from '../Buttons';
 
 const LogoutButton = () => {
+  const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async event => {
@@ -11,17 +13,7 @@ const LogoutButton = () => {
     navigate('/signin');
   };
 
-  return (
-    <Button onClick={ handleLogout }>Logout</Button>
-  );
+  return <Button onClick={handleLogout}>Logout</Button>;
 };
 
-const mapProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
-
-export default connect(mapProps, mapDispatchToProps)(LogoutButton);
+export default LogoutButton;

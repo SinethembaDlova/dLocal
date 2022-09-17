@@ -1,12 +1,12 @@
 import React from 'react';
-import Alert from '../../components/Alert';
-import LogoutButton from '../../components/LogoutButton';
+import Alert from '../Alert';
 import {
   Container,
   FormContainer
-} from '../../components/Container/index.style.js';
+} from '../Container/index.style.js';
+import LogoutButton from '../LogoutButton';
 
-const User = ({ errorMessage }) => {
+const Entity = ({ errorMessage }) => {
   return (
     <Container row>
       <Container small>
@@ -14,11 +14,11 @@ const User = ({ errorMessage }) => {
           {errorMessage && (
             <Alert variant="error" message={errorMessage} />
           )}
-        <LogoutButton />
+          <LogoutButton />
         </FormContainer>
       </Container>
     </Container>
   );
 };
 
-export default User;
+export default Entity;

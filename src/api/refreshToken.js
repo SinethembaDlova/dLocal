@@ -8,7 +8,6 @@ const refreshToken = async () => {
     const refresh_token = await axios.get(path);
     return refresh_token;
   } catch (error) {
-    console.log('error: ', error);
     throw new Error(error);
   }
 };

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import Button from '../../components/Buttons';
 import {
@@ -25,6 +26,7 @@ const Signin = ({ signin, user, status }) => {
     valid: null
   });
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setErrorMessage(null);
@@ -40,6 +42,7 @@ const Signin = ({ signin, user, status }) => {
     };
     await signin(body);
     setAuth(user);
+    navigate('/home');
   };
 
   if (status === 'signing in') return <Loader />;
